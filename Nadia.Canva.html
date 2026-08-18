@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>كانفا للمعلمين | نادية - مصممة تعليمية</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            deep: '#164E63',
+                            gold: '#D9A441',
+                            rust: '#C96F52',
+                            cream: '#FAF6EE',
+                            dark: '#252A2D',
+                            lightGold: '#fef3c7',
+                            softTeal: '#ecfeff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #FAF6EE;
+            color: #252A2D;
+        }
+
+        .bg-brand-pattern {
+            background-color: #FAF6EE;
+            background-image:
+                radial-gradient(#D9A441 0.75px, transparent 0.75px),
+                radial-gradient(#164E63 0.75px, #FAF6EE 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .nav-link.active {
+            background-color: #D9A441;
+            color: #164E63;
+            font-weight: 800;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D9A441;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #164E63;
+        }
+
+        /* الهوية البصرية */
+        .brand-image {
+            object-fit: contain;
+            object-position: center;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-cream text-brand-dark min-h-screen flex flex-col">
+
+    <!-- Top Branding Banner -->
+    <div class="bg-brand-deep text-white py-2 px-4 shadow-inner text-xs border-b-2 border-brand-gold">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+
+            <div class="flex items-center gap-2 font-semibold">
+                <span class="text-brand-gold text-base">🐾</span>
+                <span>نُصمّم التعلُّم... ونترك الأثر.</span>
+
+                <span class="hidden sm:inline text-brand-gold/70">|</span>
+
+                <span class="hidden sm:inline text-brand-cream/90">
+                    خلّينا نترك بصمتنا
+                </span>
+            </div>
+
+            <div class="flex items-center gap-4 text-brand-gold font-bold">
+                <span>نادية خالد ياسين - مصممة تعليمية</span>
+
+                <span class="bg-brand-gold/20 text-brand-gold px-2 py-0.5 rounded text-[10px]">
+                    غزة، فلسطين
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Header -->
+    <header class="bg-brand-deep text-white sticky top-0 z-50 shadow-md">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="flex items-center justify-between h-20">
+
+                <!-- BRAND -->
+                <div class="flex items-center gap-3">
+
+                    <!-- صورة الهوية البصرية -->
+                    <div
+                        class="w-16 h-16 rounded-xl bg-brand-cream border-2 border-brand-gold p-1.5 shadow-md overflow-hidden flex items-center justify-center">
+
+                        <img
+                            src="https://i.postimg.cc/cLc37T7X/byrswnal-krtwny.png"
+                            alt="الهوية البصرية لنادية خالد ياسين"
+                            class="brand-image w-full h-full"
+                        >
+
+                    </div>
+
+                    <div>
+
+                        <div class="text-xl font-black tracking-wide text-brand-cream flex items-center gap-1">
+                            NADIA
+                            <span class="text-brand-gold text-lg">🐾</span>
+                        </div>
+
+                        <div class="text-[11px] text-brand-gold font-semibold tracking-wider uppercase">
+                            Instructional Designer
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-1 space-x-reverse text-xs font-bold">
+
+                    <button
+                        onclick="switchTab('dashboard')"
+                        id="nav-dashboard"
+                        class="nav-link px-3.5 py-2 rounded-lg transition hover:bg-brand-gold/20 hover:text-brand-gold active">
+
+                        لوحة المؤشرات
+                    </button>
+
+                    <button
+                        onclick="switchTab('explorer')"
+                        id="nav-explorer"
+                        class="nav-link px-3.5 py-2 rounded-lg transition hover:bg-brand-gold/20 hover:text-brand-gold">
+
+                        دليل الوحدات (15)
+                    </button>
+
+                    <button
+                        onclick="switchTab('theory')"
+                        id="nav-theory"
+                        class="nav-link px-3.5 py-2 rounded-lg transition hover:bg-brand-gold/20 hover:text-brand-gold">
+
+                        الأطر النظرية
+                    </button>
+
+                    <button
+                        onclick="switchTab('rubric')"
+                        id="nav-rubric"
+                        class="nav-link px-3.5 py-2 rounded-lg transition hover:bg-brand-gold/20 hover:text-brand-gold">
+
+                        أداة التقييم المعياري
+                    </button>
+
+                    <button
+                        onclick="switchTab('lms')"
+                        id="nav-lms"
+                        class="nav-link px-3.5 py-2 rounded-lg transition hover:bg-brand-gold/20 hover:text-brand-gold">
+
+                        التكامل التقني LMS
+                    </button>
+
+                </nav>
+
+
+                <!-- Mobile Navigation -->
+                <div class="md:hidden">
+
+                    <select
+                        onchange="switchTab(this.value)"
+                        class="bg-brand-deep border border-brand-gold text-brand-cream text-xs rounded-lg p-2 focus:outline-none">
+
+                        <option value="dashboard">لوحة المؤشرات</option>
+                        <option value="explorer">دليل الوحدات التدريبية</option>
+                        <option value="theory">الأطر النظرية والتربوية</option>
+                        <option value="rubric">أداة التقييم المعياري</option>
+                        <option value="lms">التكامل التقني LMS</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+
+        <!-- DASHBOARD -->
+        <section id="section-dashboard" class="space-y-6">
+
+
+            <!-- HERO -->
+           <!-- HERO -->
+<div class="bg-white rounded-2xl shadow-sm border-2 border-brand-gold/30 p-6 md:p-8 relative overflow-hidden">
+
+    <!-- Decorative background -->
+    <div
+        class="absolute -left-10 -bottom-10 w-40 h-40 bg-brand-gold/10 rounded-full blur-2xl pointer-events-none">
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center gap-6">
+
+
+        <!-- البرنامج -->
+        <div
+            class="inline-flex flex-wrap items-center justify-center gap-2 bg-brand-softTeal text-brand-deep px-3 py-1 rounded-full text-xs font-bold border border-brand-deep/20">
+
+            <span>🎓 برنامج التنمية المهنية الرقمية</span>
+
+            <span>•</span>
+
+            <span class="text-brand-rust">
+                إعداد المصممة التعليمية نادية ياسين
+            </span>
+
+        </div>
+
+
+        <!-- BRAND IDENTITY CARD -->
+        <div
+            class="w-full max-w-3xl bg-brand-cream border-2 border-brand-gold/40 rounded-2xl overflow-hidden shadow-sm">
+
+            <!-- صورة الهوية -->
+            <img
+                src="https://i.postimg.cc/J4dXpKGY/kard-bmqas-kbyr.png"
+                alt="الهوية البصرية لنادية خالد ياسين"
+                class="w-full h-auto block object-cover"
+            >
+
+
+        </div>
+
+
+        <!-- Hero Text -->
+        <div class="w-full max-w-4xl text-center space-y-4 mt-1">
+
+            <h1
+                class="text-2xl md:text-3xl lg:text-4xl font-black text-brand-deep leading-tight">
+
+                كانفا للمعلمين:
+                من أساسيات التصميم إلى إنتاج محتوى تعليمي فعّال
+
+            </h1>
+
+
+            <p
+                class="text-brand-dark/80 text-xs md:text-sm leading-loose max-w-3xl mx-auto">
+
+                دليل هندسي متكامل ينقل المعلم من العشوائية والزخرفة البصرية
+                إلى الهندسة التعليمية الموجهة.
+
+                يرتكز البرنامج على نظريات التعلم المعرفي مثل العبء المعرفي،
+                مبادئ ماير، الترميز المزدوج، والتصميم الشامل للتعلم UDL؛
+                لإنتاج بيئات تعلم ذات أثر مستدام.
+
+            </p>
+            
+            <!-- المدة -->
+            <div class="p-3">
+
+                <div
+                    class="text-[11px] md:text-xs bg-brand-gold text-brand-deep font-black py-2 px-4 rounded-full text-center">
+
+                    المدى: 7 - 10 ساعات • المستهدف: 9.08 س
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+            <!-- METRICS -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-brand-deep border-y border-l border-slate-200">
+
+                    <div class="text-xs text-slate-500 font-bold mb-1">
+                        إجمالي الزمن المحدد
+                    </div>
+
+                    <div class="text-xl font-black text-brand-deep">
+                        545 دقيقة
+                    </div>
+
+                    <div class="text-[11px] text-brand-rust font-semibold mt-1">
+                        نحو 9 ساعات تدريبية
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-brand-gold border-y border-l border-slate-200">
+
+                    <div class="text-xs text-slate-500 font-bold mb-1">
+                        المسارات الرئيسية
+                    </div>
+
+                    <div class="text-xl font-black text-brand-gold">
+                        5 مسارات
+                    </div>
+
+                    <div class="text-[11px] text-slate-500 mt-1">
+                        من الفهم إلى الإتقان والإنتاج
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-brand-rust border-y border-l border-slate-200">
+
+                    <div class="text-xs text-slate-500 font-bold mb-1">
+                        الوحدات التدريبية
+                    </div>
+
+                    <div class="text-xl font-black text-brand-rust">
+                        15 وحدة
+                    </div>
+
+                    <div class="text-[11px] text-slate-500 mt-1">
+                        تتضمن مشروعاً ختامياً وRubric
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border-r-4 border-teal-600 border-y border-l border-slate-200">
+
+                    <div class="text-xs text-slate-500 font-bold mb-1">
+                        النمط والتقويم
+                    </div>
+
+                    <div class="text-xl font-black text-teal-700">
+                        تقويم بنائي وبعدي
+                    </div>
+
+                    <div class="text-[11px] text-emerald-600 font-semibold mt-1">
+                        أنشطة تطبيقية لكل وحدة
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CHARTS -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+                <!-- Time -->
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+
+                    <div>
+
+                        <div class="flex items-center justify-between mb-2">
+
+                            <h3 class="font-bold text-brand-deep text-base">
+                                التوزيع الزمني للمسارات التدريبية
+                            </h3>
+
+                            <span
+                                class="text-xs bg-brand-lightGold text-brand-deep font-bold px-2 py-0.5 rounded">
+
+                                545 دقيقة
+
+                            </span>
+
+                        </div>
+
+                        <p class="text-xs text-slate-500 mb-4">
+                            نسبة توزيع الأوقات المستهدفة على المسارات الخمسة.
+                        </p>
+
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+
+                </div>
+
+
+                <!-- Cognitive -->
+                <div
+                    class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+
+                    <div>
+
+                        <div class="flex items-center justify-between mb-2">
+
+                            <h3 class="font-bold text-brand-deep text-base">
+                                تحول الهندسة التعليمية للعبء المعرفي
+                            </h3>
+
+                            <span
+                                class="text-xs bg-brand-softTeal text-brand-deep font-bold px-2 py-0.5 rounded">
+
+                                مبدأ CLT
+
+                            </span>
+
+                        </div>
+
+                        <p class="text-xs text-slate-500 mb-4">
+                            التحول من الفوضى والزخرفة المشتتة إلى معالجة معرفية موجهة.
+                        </p>
+
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="cognitiveChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TRACKS TABLE -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+
+                <div class="flex items-center justify-between mb-4">
+
+                    <h3 class="font-bold text-brand-deep text-lg">
+                        خارطة المسارات الرئيسية للبرنامج
+                    </h3>
+
+                    <span class="text-xs text-brand-rust font-bold">
+                        🐾 خلّينا نترك بصمتنا
+                    </span>
+
+                </div>
+
+
+                <div class="overflow-x-auto">
+
+                    <table class="w-full text-sm text-right text-brand-dark">
+
+                        <thead
+                            class="bg-brand-cream text-brand-deep font-bold text-xs border-b border-brand-gold/30">
+
+                            <tr>
+
+                                <th class="p-3">المسار</th>
+                                <th class="p-3">اسم المسار التدريبي</th>
+                                <th class="p-3">الوحدات المتضمنة</th>
+                                <th class="p-3">الزمن المستهدف</th>
+                                <th class="p-3">الهدف التربوي والمخرج المحوري</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody class="divide-y divide-slate-100 text-xs">
+
+
+                            <tr class="hover:bg-brand-cream/50">
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    المسار الأول
+                                </td>
+
+                                <td class="p-3 font-bold text-brand-rust">
+                                    أفهم قبل أن أصمم
+                                </td>
+
+                                <td class="p-3">
+                                    الوحدة 0، الوحدة 1
+                                </td>
+
+                                <td class="p-3 font-bold">
+                                    60 دقيقة
+                                </td>
+
+                                <td class="p-3">
+                                    بناء الجسر المفهومي بين نظرية التعلم والتحول
+                                    من التصميم الزخرفي إلى التصميم التعليمي الهندسي.
+                                </td>
+
+                            </tr>
+
+
+                            <tr class="hover:bg-brand-cream/50">
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    المسار الثاني
+                                </td>
+
+                                <td class="p-3 font-bold text-brand-gold">
+                                    أبدأ مع كانفا
+                                </td>
+
+                                <td class="p-3">
+                                    الوحدة 2، 3، 4، 5، 6
+                                </td>
+
+                                <td class="p-3 font-bold">
+                                    190 دقيقة
+                                </td>
+
+                                <td class="p-3">
+                                    التمكن من الواجهة والقوالب والتباين اللوني
+                                    وإدارة المحتوى والملفات.
+                                </td>
+
+                            </tr>
+
+
+                            <tr class="hover:bg-brand-cream/50">
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    المسار الثالث
+                                </td>
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    أصمم للتعليم
+                                </td>
+
+                                <td class="p-3">
+                                    الوحدة 7، 8، 9
+                                </td>
+
+                                <td class="p-3 font-bold">
+                                    140 دقيقة
+                                </td>
+
+                                <td class="p-3">
+                                    إنتاج أوراق العمل والعروض وتحويل المحتوى
+                                    إلى تمثيلات بصرية تعليمية.
+                                </td>
+
+                            </tr>
+
+
+                            <tr class="hover:bg-brand-cream/50">
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    المسار الرابع
+                                </td>
+
+                                <td class="p-3 font-bold text-purple-700">
+                                    أرفع مستوى التفاعل والإبداع
+                                </td>
+
+                                <td class="p-3">
+                                    الوحدة 10، 11، 12
+                                </td>
+
+                                <td class="p-3 font-bold">
+                                    115 دقيقة
+                                </td>
+
+                                <td class="p-3">
+                                    توظيف الحركة والأنشطة التفاعلية
+                                    وأدوات الذكاء الاصطناعي بصورة تعليمية.
+                                </td>
+
+                            </tr>
+
+
+                            <tr class="hover:bg-brand-cream/50">
+
+                                <td class="p-3 font-bold text-brand-deep">
+                                    المسار الخامس
+                                </td>
+
+                                <td class="p-3 font-bold text-emerald-700">
+                                    أتقن وأنتج
+                                </td>
+
+                                <td class="p-3">
+                                    الوحدة 13، 14
+                                </td>
+
+                                <td class="p-3 font-bold">
+                                    90 دقيقة
+                                </td>
+
+                                <td class="p-3">
+                                    تقييم المنتج التعليمي وإنتاج المشروع النهائي.
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- MODULES -->
+        <section id="section-explorer" class="space-y-6 hidden">
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+
+                <div
+                    class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+
+                    <div>
+
+                        <h2 class="text-xl font-bold text-brand-deep">
+                            دليل الوحدات التدريبية الـ 15
+                        </h2>
+
+                        <p class="text-xs text-slate-500 mt-1">
+                            استعرض محتوى كل وحدة ونشاطها ومخرجها التعليمي.
+                        </p>
+
+                    </div>
+
+
+                    <div class="flex flex-wrap gap-2">
+
+                        <select
+                            id="trackFilter"
+                            onchange="filterModules()"
+                            class="bg-brand-cream border border-brand-gold rounded-lg text-xs p-2.5 font-semibold text-brand-deep focus:outline-none">
+
+                            <option value="all">
+                                جميع المسارات
+                            </option>
+
+                            <option value="1">
+                                المسار 1
+                            </option>
+
+                            <option value="2">
+                                المسار 2
+                            </option>
+
+                            <option value="3">
+                                المسار 3
+                            </option>
+
+                            <option value="4">
+                                المسار 4
+                            </option>
+
+                            <option value="5">
+                                المسار 5
+                            </option>
+
+                        </select>
+
+
+                        <input
+                            type="text"
+                            id="moduleSearch"
+                            onkeyup="filterModules()"
+                            placeholder="ابحث عن موضوع..."
+                            class="bg-brand-cream border border-slate-300 rounded-lg text-xs p-2.5 w-52 focus:outline-none focus:border-brand-gold">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="modulesGrid"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- THEORY -->
+        <section id="section-theory" class="space-y-6 hidden">
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+
+
+                <div class="flex items-center justify-between mb-2">
+
+                    <h2 class="text-xl font-bold text-brand-deep">
+                        الأطر النظرية وهندسة التصميم التعليمي
+                    </h2>
+
+                    <span
+                        class="text-xs bg-brand-gold/20 text-brand-deep px-3 py-1 rounded-full font-bold">
+
+                        بصمة نادية 🐾
+
+                    </span>
+
+                </div>
+
+
+                <p class="text-xs text-slate-600 leading-relaxed mb-6">
+
+                    يقوم البرنامج على الربط بين النظرية والممارسة
+                    لضمان تصميم موارد تعليمية وظيفية وليست زخرفية.
+
+                </p>
+
+
+                <div
+                    class="flex border-b border-slate-200 gap-2 mb-6 overflow-x-auto text-xs font-bold">
+
+                    <button
+                        onclick="switchTheory('clt')"
+                        id="theory-tab-clt"
+                        class="py-2.5 px-4 border-b-2 border-brand-deep text-brand-deep">
+
+                        1. العبء المعرفي
+
+                    </button>
+
+
+                    <button
+                        onclick="switchTheory('ctml')"
+                        id="theory-tab-ctml"
+                        class="py-2.5 px-4 border-b-2 border-transparent text-slate-500">
+
+                        2. مبادئ ماير
+
+                    </button>
+
+
+                    <button
+                        onclick="switchTheory('dualcoding')"
+                        id="theory-tab-dualcoding"
+                        class="py-2.5 px-4 border-b-2 border-transparent text-slate-500">
+
+                        3. الترميز المزدوج
+
+                    </button>
+
+
+                    <button
+                        onclick="switchTheory('udl')"
+                        id="theory-tab-udl"
+                        class="py-2.5 px-4 border-b-2 border-transparent text-slate-500">
+
+                        4. UDL
+
+                    </button>
+
+                </div>
+
+
+                <div id="theoryContent" class="space-y-4"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RUBRIC -->
+        <section id="section-rubric" class="space-y-6 hidden">
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+
+                <div class="mb-6">
+
+                    <h2 class="text-xl font-bold text-brand-deep">
+                        أداة التقييم المعياري
+                    </h2>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        قيّم جودة التصميم التعليمي وفق ستة معايير.
+                    </p>
+
+                </div>
+
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+
+                    <div class="lg:col-span-2 space-y-4 text-xs">
+
+                        <div id="rubricQuestions"></div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="sticky top-24 bg-brand-deep text-white rounded-2xl p-6 shadow-xl border-2 border-brand-gold space-y-4">
+
+                            <div class="text-center py-4">
+
+                                <div
+                                    id="scoreDisplay"
+                                    class="text-5xl font-black text-brand-gold">
+
+                                    12 / 12
+
+                                </div>
+
+                                <div
+                                    id="scorePercentage"
+                                    class="text-xs mt-2">
+
+                                    النسبة المئوية: 100%
+
+                                </div>
+
+                                <div
+                                    id="scoreBadge"
+                                    class="inline-block mt-3 px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold">
+
+                                    تصميم متميز
+
+                                </div>
+
+                            </div>
+
+
+                            <p
+                                id="scoreFeedback"
+                                class="text-xs text-brand-cream/90 leading-relaxed">
+
+                                التصميم يستوفي معايير الجودة التعليمية.
+
+                            </p>
+
+
+                            <button
+                                onclick="resetRubric()"
+                                class="w-full py-2.5 bg-brand-gold text-brand-deep font-bold rounded-lg text-xs">
+
+                                إعادة ضبط التقييم
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LMS -->
+        <section id="section-lms" class="space-y-6 hidden">
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+
+                <h2 class="text-xl font-bold text-brand-deep mb-2">
+                    التكامل التقني مع أنظمة إدارة التعلم LMS
+                </h2>
+
+
+                <p class="text-xs text-slate-600 mb-6">
+
+                    ربط مخرجات كانفا بالأنظمة التعليمية الرقمية
+                    لتسهيل مشاركة الموارد والتعلم التفاعلي.
+
+                </p>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+
+                    <div
+                        class="p-4 rounded-xl border border-brand-gold/30 bg-brand-cream/50">
+
+                        <div class="font-bold text-brand-deep">
+                            Google Classroom
+                        </div>
+
+                        <p class="text-xs mt-2">
+                            مشاركة الأنشطة والتصاميم مع الطلاب.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-4 rounded-xl border border-brand-gold/30 bg-brand-cream/50">
+
+                        <div class="font-bold text-brand-deep">
+                            Canvas LMS
+                        </div>
+
+                        <p class="text-xs mt-2">
+                            تضمين الموارد داخل المساقات.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-4 rounded-xl border border-brand-gold/30 bg-brand-cream/50">
+
+                        <div class="font-bold text-brand-deep">
+                            Microsoft Teams
+                        </div>
+
+                        <p class="text-xs mt-2">
+                            دعم التعلم التشاركي.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="p-4 rounded-xl border border-brand-gold/30 bg-brand-cream/50">
+
+                        <div class="font-bold text-brand-deep">
+                            Schoology & D2L
+                        </div>
+
+                        <p class="text-xs mt-2">
+                            دمج الموارد داخل بيئة المؤسسة.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- MODAL -->
+    <div
+        id="moduleModal"
+        class="fixed inset-0 bg-brand-deep/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+
+        <div
+            class="bg-white rounded-2xl shadow-2xl max-w-xl w-full max-h-[85vh] overflow-y-auto custom-scrollbar p-6 relative border-2 border-brand-gold">
+
+            <button
+                onclick="closeModal()"
+                class="absolute top-4 left-4 text-slate-400 hover:text-brand-rust font-bold text-xl">
+
+                ✕
+
+            </button>
+
+            <div id="modalBody"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer
+        class="bg-brand-deep text-brand-cream text-xs py-8 border-t-4 border-brand-gold mt-auto">
+
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+
+
+            <!-- Footer Image -->
+            <div class="flex justify-center">
+
+                <div class="bg-brand-cream rounded-xl p-2 w-20 h-20">
+
+                    <img
+                        src="https://i.postimg.cc/0zbrPYB7/swrt-Codex-17-aghsts-2026-09-14-09-m.png"
+                        alt="هوية نادية"
+                        class="brand-image w-full h-full"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="text-brand-gold font-bold text-sm">
+
+                NADIA • Instructional Designer 🐾
+
+            </div>
+
+
+            <p class="text-brand-cream/80">
+                نُصمّم التعلُّم... ونترك الأثر.
+                خلّينا نترك بصمتنا 🐾
+            </p>
+
+
+            <div
+                class="text-brand-gold/70 text-[11px] pt-2 border-t border-brand-cream/10">
+
+                إعداد وتصميم:
+                المصممة التعليمية نادية خالد ياسين
+                • غزة، فلسطين
+                © 2026
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+<script>
+
+/* =========================
+   Modules
+========================= */
+
+const modulesData = [
+
+    {
+        id:0,
+        track:1,
+        title:"الوحدة 0: التهيئة والانطلاق",
+        durationStr:"15 دقيقة",
+        coreContent:"فكرة البرنامج، أهدافه، طريقة التعلم الذاتي والاختبار القبلي.",
+        activity:"اختبار قبلي تشخيصي.",
+        outcome:"تحديد مستوى المتدرب والفجوات المهارية."
+    },
+
+    {
+        id:1,
+        track:1,
+        title:"الوحدة 1: أساسيات التصميم التعليمي والبصري",
+        durationStr:"45 دقيقة",
+        coreContent:"التصميم التعليمي، مبادئ CRAP، التسلسل البصري والمساحات البيضاء.",
+        activity:"تحليل تصميمات تعليمية.",
+        outcome:"تنمية الحس النقدي والبصري."
+    },
+
+    {
+        id:2,
+        track:2,
+        title:"الوحدة 2: التعرف إلى كانفا وتهيئة الحساب",
+        durationStr:"35 دقيقة",
+        coreContent:"التعرف إلى Canva Free وPro وCanva for Education.",
+        activity:"تهيئة الحساب التعليمي.",
+        outcome:"التمكن من بيئة كانفا."
+    },
+
+    {
+        id:3,
+        track:2,
+        title:"الوحدة 3: إنشاء التصميمات واستخدام القوالب",
+        durationStr:"40 دقيقة",
+        coreContent:"إنشاء التصميم واختيار المقاسات والقوالب.",
+        activity:"تعديل قالب تعليمي.",
+        outcome:"توظيف القوالب بما يخدم الهدف."
+    },
+
+    {
+        id:4,
+        track:2,
+        title:"الوحدة 4: النصوص والألوان والتنسيق البصري",
+        durationStr:"40 دقيقة",
+        coreContent:"الخطوط والألوان والتباين والتسلسل الهرمي.",
+        activity:"تحسين تصميم ضعيف.",
+        outcome:"رفع مستوى الوضوح البصري."
+    },
+
+    {
+        id:5,
+        track:2,
+        title:"الوحدة 5: الصور والعناصر والأيقونات",
+        durationStr:"40 دقيقة",
+        coreContent:"اختيار الصور والأيقونات والعناصر المناسبة.",
+        activity:"إنشاء صفحة تعليمية.",
+        outcome:"استخدام العناصر بصورة وظيفية."
+    },
+
+    {
+        id:6,
+        track:2,
+        title:"الوحدة 6: تنظيم الملفات وإدارة العمل",
+        durationStr:"35 دقيقة",
+        coreContent:"المجلدات وتنظيم المشاريع والمشاركة.",
+        activity:"إنشاء هيكل ملفات.",
+        outcome:"إدارة الأصول الرقمية."
+    },
+
+    {
+        id:7,
+        track:3,
+        title:"الوحدة 7: تصميم أوراق العمل",
+        durationStr:"50 دقيقة",
+        coreContent:"تخطيط أوراق العمل والأسئلة والتعليمات.",
+        activity:"إنشاء ورقة عمل.",
+        outcome:"تصميم أوراق عمل فعالة."
+    },
+
+    {
+        id:8,
+        track:3,
+        title:"الوحدة 8: تصميم عروض تقديمية فعالة",
+        durationStr:"50 دقيقة",
+        coreContent:"تسلسل الشرائح وتقليل النص.",
+        activity:"إنشاء عرض تعليمي.",
+        outcome:"إنتاج عروض واضحة."
+    },
+
+    {
+        id:9,
+        track:3,
+        title:"الوحدة 9: تحويل المحتوى إلى محتوى بصري",
+        durationStr:"40 دقيقة",
+        coreContent:"Chunking والإنفوجرافيك والمخططات.",
+        activity:"تحويل نص إلى إنفوجرافيك.",
+        outcome:"تبسيط المفاهيم."
+    },
+
+    {
+        id:10,
+        track:4,
+        title:"الوحدة 10: الحركة والتأثيرات",
+        durationStr:"35 دقيقة",
+        coreContent:"Animate وTransitions والحركة الوظيفية.",
+        activity:"تطبيق حركة تعليمية.",
+        outcome:"توجيه انتباه المتعلم."
+    },
+
+    {
+        id:11,
+        track:4,
+        title:"الوحدة 11: تصميم أنشطة تفاعلية",
+        durationStr:"40 دقيقة",
+        coreContent:"الألعاب والأنشطة والروابط.",
+        activity:"تصميم نشاط تفاعلي.",
+        outcome:"زيادة تفاعل الطلاب."
+    },
+
+    {
+        id:12,
+        track:4,
+        title:"الوحدة 12: كانفا AI للمعلمين",
+        durationStr:"40 دقيقة",
+        coreContent:"Magic Studio وكتابة Prompts.",
+        activity:"إنتاج عنصر باستخدام AI.",
+        outcome:"توظيف AI بصورة مسؤولة."
+    },
+
+    {
+        id:13,
+        track:5,
+        title:"الوحدة 13: تقييم جودة التصميم",
+        durationStr:"30 دقيقة",
+        coreContent:"معايير الجودة وRubric.",
+        activity:"تقييم تصميم.",
+        outcome:"تنمية التقييم النقدي."
+    },
+
+    {
+        id:14,
+        track:5,
+        title:"الوحدة 14: المشروع الختامي",
+        durationStr:"60 دقيقة",
+        coreContent:"دمج مهارات البرنامج في مشروع متكامل.",
+        activity:"إنتاج المشروع النهائي.",
+        outcome:"منتج تعليمي جاهز للتطبيق."
+    }
+
+];
+
+
+/* =========================
+   THEORIES
+========================= */
+
+const theoriesData = {
+
+    clt: {
+        title:"نظرية العبء المعرفي CLT",
+        subtitle:"John Sweller",
+        details:"تركز النظرية على إدارة سعة الذاكرة العاملة.",
+        items:[
+            {
+                name:"العبء الذاتي",
+                desc:"مرتبط بصعوبة المحتوى."
+            },
+            {
+                name:"العبء الدخيل",
+                desc:"ينتج عن العناصر غير الضرورية."
+            },
+            {
+                name:"العبء الوثيق",
+                desc:"الجهد المخصص لبناء المعرفة."
+            }
+        ]
+    },
+
+
+    ctml: {
+        title:"نظرية ماير للتعلم بالوسائط المتعددة",
+        subtitle:"Richard Mayer",
+        details:"تعتمد على معالجة المعلومات بصرياً وسمعياً.",
+        items:[
+            {
+                name:"الاتساق",
+                desc:"إزالة العناصر غير الضرورية."
+            },
+            {
+                name:"الإشارة",
+                desc:"توجيه انتباه المتعلم."
+            },
+            {
+                name:"التجاور",
+                desc:"وضع النص بجوار العنصر المرتبط."
+            }
+        ]
+    },
+
+
+    dualcoding: {
+        title:"نظرية الترميز المزدوج",
+        subtitle:"Allan Paivio",
+        details:"دمج التمثيل اللفظي والبصري.",
+        items:[
+            {
+                name:"التمثيل البصري",
+                desc:"استخدام الصور لدعم المفهوم."
+            },
+            {
+                name:"التمثيل اللفظي",
+                desc:"استخدام النص المختصر الواضح."
+            }
+        ]
+    },
+
+
+    udl: {
+        title:"التصميم الشامل للتعلم UDL",
+        subtitle:"Universal Design for Learning",
+        details:"تصميم المحتوى بحيث يلائم أنماط المتعلمين المختلفة.",
+        items:[
+            {
+                name:"تمثيلات متعددة",
+                desc:"نصوص وصور ومخططات."
+            },
+            {
+                name:"إتاحة الوصول",
+                desc:"مراعاة التباين والوضوح."
+            }
+        ]
+    }
+
+};
+
+
+/* =========================
+   INITIALIZATION
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    renderModules();
+
+    switchTheory("clt");
+
+    initTimeChart();
+
+    initCognitiveChart();
+
+    renderRubric();
+
+});
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function switchTab(tabId) {
+
+    const sections =
+        ["dashboard","explorer","theory","rubric","lms"];
+
+    sections.forEach(section => {
+
+        document
+            .getElementById(`section-${section}`)
+            .classList.add("hidden");
+
+        const nav =
+            document.getElementById(`nav-${section}`);
+
+        if(nav)
+            nav.classList.remove("active");
+
+    });
+
+
+    document
+        .getElementById(`section-${tabId}`)
+        .classList.remove("hidden");
+
+
+    const activeNav =
+        document.getElementById(`nav-${tabId}`);
+
+    if(activeNav)
+        activeNav.classList.add("active");
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================
+   MODULES
+========================= */
+
+function renderModules(items = modulesData) {
+
+    const grid =
+        document.getElementById("modulesGrid");
+
+    grid.innerHTML = "";
+
+
+    items.forEach(mod => {
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "bg-brand-cream/40 border border-brand-gold/30 rounded-xl p-4 hover:shadow-md hover:border-brand-gold transition flex flex-col justify-between";
+
+
+        card.innerHTML = `
+
+        <div>
+
+            <div class="flex items-center justify-between text-xs mb-2">
+
+                <span class="font-bold text-brand-deep bg-brand-gold/20 px-2 py-0.5 rounded">
+                    المسار ${mod.track}
+                </span>
+
+                <span class="text-brand-rust font-bold">
+                    ${mod.durationStr}
+                </span>
+
+            </div>
+
+
+            <h4 class="font-bold text-brand-deep text-sm mb-2">
+                ${mod.title}
+            </h4>
+
+
+            <p class="text-xs text-slate-600 mb-3 leading-relaxed">
+                ${mod.coreContent}
+            </p>
+
+        </div>
+
+
+        <button
+            onclick="openModal(${mod.id})"
+            class="text-xs text-brand-deep font-bold hover:text-brand-rust">
+
+            التفاصيل 🐾 ←
+
+        </button>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+function filterModules() {
+
+    const track =
+        document.getElementById("trackFilter").value;
+
+
+    const search =
+        document
+            .getElementById("moduleSearch")
+            .value
+            .toLowerCase();
+
+
+    const filtered =
+        modulesData.filter(mod => {
+
+            const trackMatch =
+                track === "all" ||
+                mod.track.toString() === track;
+
+
+            const textMatch =
+                mod.title.toLowerCase().includes(search) ||
+                mod.coreContent.toLowerCase().includes(search);
+
+
+            return trackMatch && textMatch;
+
+        });
+
+
+    renderModules(filtered);
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(id) {
+
+    const mod =
+        modulesData.find(item => item.id === id);
+
+
+    document.getElementById("modalBody").innerHTML = `
+
+    <div class="text-xs font-bold text-brand-rust mb-2">
+        المسار ${mod.track} • ${mod.durationStr}
+    </div>
+
+
+    <h3 class="text-lg font-bold text-brand-deep mb-4">
+        ${mod.title}
+    </h3>
+
+
+    <div class="space-y-3 text-xs">
+
+
+        <div class="p-3 bg-brand-cream rounded-xl">
+
+            <strong class="text-brand-deep">
+                المحتوى:
+            </strong>
+
+            <p class="mt-1 leading-relaxed">
+                ${mod.coreContent}
+            </p>
+
+        </div>
+
+
+        <div class="p-3 bg-purple-50 rounded-xl">
+
+            <strong class="text-purple-900">
+                النشاط:
+            </strong>
+
+            <p class="mt-1">
+                ${mod.activity}
+            </p>
+
+        </div>
+
+
+        <div class="p-3 bg-emerald-50 rounded-xl">
+
+            <strong class="text-emerald-900">
+                المخرج:
+            </strong>
+
+            <p class="mt-1">
+                ${mod.outcome}
+            </p>
+
+        </div>
+
+
+    </div>
+
+    `;
+
+
+    document
+        .getElementById("moduleModal")
+        .classList.remove("hidden");
+
+}
+
+
+function closeModal() {
+
+    document
+        .getElementById("moduleModal")
+        .classList.add("hidden");
+
+}
+
+
+/* =========================
+   THEORY
+========================= */
+
+function switchTheory(key) {
+
+    const data = theoriesData[key];
+
+
+    ["clt","ctml","dualcoding","udl"]
+        .forEach(tab => {
+
+            const button =
+                document.getElementById(
+                    `theory-tab-${tab}`
+                );
+
+
+            button.className =
+                "py-2.5 px-4 border-b-2 border-transparent text-slate-500 font-bold";
+
+        });
+
+
+    document
+        .getElementById(`theory-tab-${key}`)
+        .className =
+        "py-2.5 px-4 border-b-2 border-brand-deep text-brand-deep font-bold";
+
+
+    let items = "";
+
+
+    data.items.forEach(item => {
+
+        items += `
+
+        <div class="p-4 bg-brand-cream rounded-xl">
+
+            <div class="font-bold text-brand-deep mb-1">
+                ${item.name}
+            </div>
+
+            <p class="text-xs">
+                ${item.desc}
+            </p>
+
+        </div>
+
+        `;
+
+    });
+
+
+    document.getElementById("theoryContent").innerHTML = `
+
+    <h3 class="font-bold text-brand-deep">
+        ${data.title}
+    </h3>
+
+    <div class="text-brand-rust text-xs font-bold">
+        ${data.subtitle}
+    </div>
+
+    <p class="text-xs text-slate-600">
+        ${data.details}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+        ${items}
+    </div>
+
+    `;
+
+}
+
+
+/* =========================
+   RUBRIC
+========================= */
+
+function renderRubric() {
+
+    const criteria = [
+
+        "التوافق التربوي والهدف التعليمي",
+
+        "إدارة العبء المعرفي والمساحات البيضاء",
+
+        "التباين والتسلسل البصري",
+
+        "الاتساق وجودة العناصر",
+
+        "الحركة والتفاعل الوظيفي",
+
+        "الاستخدام الأخلاقي للذكاء الاصطناعي"
+
+    ];
+
+
+    const container =
+        document.getElementById("rubricQuestions");
+
+
+    criteria.forEach((criterion,index) => {
+
+        container.innerHTML += `
+
+        <div class="p-4 bg-brand-cream rounded-xl border border-brand-gold/30 mb-4">
+
+            <div class="font-bold text-brand-deep mb-2">
+
+                ${index+1}. ${criterion}
+
+            </div>
+
+
+            <label class="block mb-1">
+
+                <input
+                    type="radio"
+                    name="c${index+1}"
+                    value="2"
+                    checked
+                    onchange="calculateScore()">
+
+                متميز
+
+            </label>
+
+
+            <label class="block mb-1">
+
+                <input
+                    type="radio"
+                    name="c${index+1}"
+                    value="1"
+                    onchange="calculateScore()">
+
+                مقبول
+
+            </label>
+
+
+            <label class="block">
+
+                <input
+                    type="radio"
+                    name="c${index+1}"
+                    value="0"
+                    onchange="calculateScore()">
+
+                يحتاج تحسين
+
+            </label>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+function calculateScore() {
+
+    let total = 0;
+
+
+    for(let i=1;i<=6;i++) {
+
+        const selected =
+            document.querySelector(
+                `input[name="c${i}"]:checked`
+            );
+
+
+        if(selected)
+            total += Number(selected.value);
+
+    }
+
+
+    const percentage =
+        Math.round((total / 12) * 100);
+
+
+    document.getElementById("scoreDisplay")
+        .textContent =
+        `${total} / 12`;
+
+
+    document.getElementById("scorePercentage")
+        .textContent =
+        `النسبة المئوية: ${percentage}%`;
+
+
+    const badge =
+        document.getElementById("scoreBadge");
+
+
+    const feedback =
+        document.getElementById("scoreFeedback");
+
+
+    if(total >= 10) {
+
+        badge.textContent =
+            "تصميم تعليمي متميز";
+
+        feedback.textContent =
+            "المورد يستوفي معظم معايير التصميم التعليمي ويمكن اعتماده للإنتاج.";
+
+    }
+
+    else if(total >= 6) {
+
+        badge.textContent =
+            "تصميم جيد يحتاج تحسينات";
+
+        feedback.textContent =
+            "راجع التباين والمساحات البيضاء والعناصر البصرية.";
+
+    }
+
+    else {
+
+        badge.textContent =
+            "يحتاج إعادة تصميم";
+
+        feedback.textContent =
+            "يوصى بإعادة هيكلة المحتوى وتقليل العبء المعرفي.";
+
+    }
+
+}
+
+
+function resetRubric() {
+
+    for(let i=1;i<=6;i++) {
+
+        const radios =
+            document.getElementsByName(`c${i}`);
+
+        if(radios.length)
+            radios[0].checked = true;
+
+    }
+
+    calculateScore();
+
+}
+
+
+/* =========================
+   CHARTS
+========================= */
+
+function initTimeChart() {
+
+    new Chart(
+        document.getElementById("timeChart"),
+
+        {
+
+            type:"doughnut",
+
+            data:{
+
+                labels:[
+                    "أفهم قبل أن أصمم",
+                    "أبدأ مع كانفا",
+                    "أصمم للتعليم",
+                    "التفاعل والإبداع",
+                    "أتقن وأنتج"
+                ],
+
+                datasets:[{
+
+                    data:[60,190,140,115,90],
+
+                    backgroundColor:[
+                        "#164E63",
+                        "#D9A441",
+                        "#C96F52",
+                        "#7e22ce",
+                        "#0d9488"
+                    ],
+
+                    borderColor:"#ffffff",
+
+                    borderWidth:2
+
+                }]
+
+            },
+
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+
+                        position:"bottom",
+
+                        labels:{
+                            font:{
+                                family:"Cairo",
+                                size:10
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+function initCognitiveChart() {
+
+    new Chart(
+        document.getElementById("cognitiveChart"),
+
+        {
+
+            type:"bar",
+
+            data:{
+
+                labels:[
+                    "العبء الذاتي",
+                    "العبء الدخيل",
+                    "العبء الوثيق"
+                ],
+
+                datasets:[
+
+                    {
+
+                        label:"قبل",
+
+                        data:[75,85,20],
+
+                        backgroundColor:"#C96F52"
+
+                    },
+
+                    {
+
+                        label:"بعد",
+
+                        data:[40,10,95],
+
+                        backgroundColor:"#164E63"
+
+                    }
+
+                ]
+
+            },
+
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                scales:{
+
+                    y:{
+                        beginAtZero:true,
+                        max:100
+                    }
+
+                },
+
+                plugins:{
+
+                    legend:{
+                        position:"bottom"
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>
